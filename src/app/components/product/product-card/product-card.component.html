@@ -1,0 +1,25 @@
+<div
+    class="product-card bg-white shadow-lg rounded-lg overflow-hidden flex flex-col w-full max-w-sm h-[28rem] md:max-w-xs transition duration-300 transform hover:shadow-xl">
+    <div class="overflow-hidden">
+        <img [src]="product.image" [alt]="product.title"
+            class="w-full h-48 object-contain transition duration-300 transform hover:scale-110" />
+    </div>
+    <div class="p-4 flex flex-col justify-between h-full">
+        <div class="flex-1">
+            <h2 class="text-lg font-semibold text-gray-800">{{ product.title }}</h2>
+            <p class="text-gray-600 font-semibold mt-2">Price: ${{ product.price }}</p>
+            <p class="text-gray-500 text-sm mt-2">Category: {{ product.category }}</p>
+            <p class="text-gray-700 mt-2 line-clamp-3">{{ product.description }}</p>
+        </div>
+        <div class="mt-4 flex flex-col gap-2 justify-between items-center">
+            <a [routerLink]="['/products', product.id]" class="text-blue-500 hover:underline">Ver más</a>
+            <button (click)="addToCart(1)"
+                class="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition duration-200">Add to cart</button>
+            <!-- Mensaje de confirmación -->
+            <p *ngIf="showMessage"
+                class="text-green-600 font-semibold mt-2 text-center transition-opacity duration-300 ease-in-out">
+                Product in cart!
+            </p>
+        </div>
+    </div>
+</div>

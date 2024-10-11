@@ -1,0 +1,66 @@
+<div class="max-w-4xl mx-auto bg-white rounded-lg overflow-hidden mt-10 flex">
+    <div class="w-2/3 p-4">
+        <h2 class="text-2xl font-bold mb-4">My cart</h2>
+
+        <div *ngIf="cartItems.length === 0" class="text-gray-500">
+            <p>Your cart is empty.</p>
+        </div>
+
+        <ul *ngIf="cartItems.length > 0" class="space-y-4">
+            <li *ngFor="let item of cartItems" class="bg-white rounded-lg p-4">
+                <h2 class="font-medium mb-2 text-center">{{ item.product.title }}</h2>
+                <img [src]="item.product.image" [alt]="item.product.title"
+                    class="w-full h-64 object-contain rounded-lg mb-2" />
+
+                <div class="flex items-center justify-center space-x-2 mt-4">
+                    <button (click)="decrementQuantity(item.product.id)" class="px-2 py-1 bg-red-500 text-white rounded"
+                        [disabled]="item.quantity <= 1">-</button>
+                    <span class="text-gray-600">Quantity: {{ item.quantity }}</span>
+                    <button (click)="incrementQuantity(item.product.id)"
+                        class="px-2 py-1 bg-green-500 text-white rounded">+</button>
+                </div>
+
+                <div class="mt-4">
+                    <button (click)="removeItemFromCart(item.product.id)"
+                        class="mt-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="cartItems.length !== 0" class="w-1/3 bg-gray-100 p-6 self-start rounded-lg shadow-md">
+        <h3 class="text-xl font-bold mb-4">Purchase summary</h3>
+        <div class="mb-6">
+            <p class="text-lg font-semibold">Total Price: ${{ totalPrice.toFixed(2) }}</p>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <button (click)="onCheckout()"
+                class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded w-full">
+                Make purchase
+            </button>
+            <button (click)="clearCart()"
+                class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded w-full">
+                Clear cart
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showPurchaseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        <h3 class="text-2xl font-bold mb-4">¡Compra realizada con éxito!</h3>
+        <p class="mb-2">Gracias por tu compra. Aquí están los detalles:</p>
+        <ul class="list-disc ml-6 mb-4">
+            <li *ngFor="let item of purchaseDetails?.items">
+                {{ item.product.title }} - Cantidad: {{ item.quantity }}
+            </li>
+        </ul>
+        <p class="font-semibold">Total: ${{ purchaseDetails?.total?.toFixed(2) }}</p>
+        <button (click)="closeModal()"
+            class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+            Cerrar
+        </button>
+    </div>
+</div>
