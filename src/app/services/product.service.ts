@@ -28,7 +28,9 @@ export class ProductService {
   }
 
   // Obtener productos por su categoria
-  getProductsByCategory(category: string): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(`${this.apiUrl}/category/${category}`);
+  getProductsByCategory(category: string, page: number): Observable<ProductModel[]> {
+    return this.http.get<ProductModel[]>(`${this.apiUrl}/category/${category}`, {
+      params: { limit: page * LIMIT }
+    });
   }
 }
