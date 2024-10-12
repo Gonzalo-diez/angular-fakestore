@@ -1,25 +1,27 @@
-<div class="flex flex-col items-center space-y-4 mt-4">
-    <label for="category-select" class="text-lg font-semibold text-gray-700">
-        Select category:
-    </label>
-    <select id="category-select" [(ngModel)]="selectedCategory"
-        class="block w-64 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200">
-        <option value="" disabled selected>Choose a category</option>
-        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
-    <a [routerLink]="['/category', selectedCategory]"
-        class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-150">
-        Load products
-    </a>
-</div>
+<div class="product-list-container mt-5 mb-5">
+    @switch (productsState.state.status()) {
+        @case ("loading") {
+            <div class="text-center text-gray-500">
+                Loading products...
+            </div>
+        }
 
+        @case ("error") {
+            <div class="text-center text-red-500">
+                Error loading products. Try again.
+            </div>
+        }
 
+        @default {
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-7xl mx-auto">
+                <app-product-card *ngFor="let product of productsState.state.products()" [product]="product"></app-product-card>
+            </div>
 
-<div class="product-list mt-5 mb-5">
-    <div class="flex justify-center">
-        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-7xl">
-            <!-- Ajusta el ancho máximo aquí -->
-            <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-        </div>
-    </div>
+            <div class="pagination-controls flex justify-center mt-6 space-x-4">
+                <button (click)="changePage()" class="px-4 py-2 bg-amber-500 text-white rounded hover:bg-amber-600">
+                    Load more
+                </button>
+            </div>
+        }
+    }
 </div>

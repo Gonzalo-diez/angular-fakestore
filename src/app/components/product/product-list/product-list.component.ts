@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductModel } from '../../../models/product.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { ProductService } from '../../../services/product.service';
+import { ProductStateService } from '../../../services/product-state.service';
 
 @Component({
   selector: 'app-product-list',
@@ -12,52 +11,13 @@ import { ProductService } from '../../../services/product.service';
   imports: [CommonModule, FormsModule, RouterLink, ProductCardComponent],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
+  providers: [ProductStateService],
 })
-export class ProductListComponent implements OnInit {
-  products: ProductModel[] = [];
-  limit: number = 6;
-  currentPage: number = 1;
-  categories: string[] = ['electronics', 'jewelery', 'men\'s clothing', 'women\'s clothing'];
-  selectedCategory: string = '';
+export class ProductListComponent {
+  productsState = inject(ProductStateService);
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const category = params['category'];
-      if (category) {
-        this.selectedCategory = category;
-        this.loadProductsByCategory();
-      } else {
-        this.loadProducts();
-      }
-    });
-  }
-
-  loadProducts(): void {
-    const offset = (this.currentPage - 1) * this.limit;
-    console.log(`Cargando productos con límite de ${this.limit} y offset de ${offset}`);
-    this.productService.getProducts(this.limit, offset).subscribe({
-      next: (data) => {
-        console.log('Productos cargados:', data);
-        this.products = data;
-      },
-      error: (error) => {
-        console.error('Error al cargar productos:', error);
-      }
-    });
-  }
-
-  loadProductsByCategory(): void {
-    if (!this.selectedCategory) return;
-
-    this.productService.getProductsByCategory(this.selectedCategory).subscribe({
-      next: (data) => {
-        this.products = data;
-      },
-      error: (error) => {
-        console.error('Error al cargar productos por categoría:', error);
-      }
-    });
+  changePage() {
+    const page = this.productsState.state.page() + 1;
+    this.productsState.changePage$.next(page);
   }
 }
