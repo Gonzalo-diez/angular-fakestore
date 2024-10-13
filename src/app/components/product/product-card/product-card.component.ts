@@ -21,7 +21,6 @@ export class ProductCardComponent {
     this.cartService.addToCart(this.product, quantity);
     this.showMessage = true;
 
-    // Ocultar el mensaje después de 3 segundos
     setTimeout(() => {
       this.showMessage = false;
     }, 3000);

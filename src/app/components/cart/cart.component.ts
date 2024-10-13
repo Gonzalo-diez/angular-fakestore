@@ -33,36 +33,30 @@ export class CartComponent implements OnInit {
     this.loadCartItems();
   }
 
-  // Calcular el precio total de carrito
   calculateTotal(): void {
     this.totalPrice = this.cartService.getTotal();
   }
 
-  // Cargar los items del carrito
   loadCartItems(): void {
     this.cartItems = this.cartService.getCartItems();
     this.calculateTotal();
   }
 
-  // Incrementa la cantidad del producto en el carrito
   incrementQuantity(productId: number): void {
     this.cartService.incrementQuantity(productId);
     this.calculateTotal();
   }
 
-  // Disminuye la cantidad del producto en el carrito
   decrementQuantity(productId: number): void {
     this.cartService.decrementQuantity(productId);
     this.calculateTotal();
   }
 
-  // Elimina el producto del carrito
   removeItemFromCart(productId: number): void {
     this.cartService.removeFromCart(productId);
     this.loadCartItems();
   }
 
-  // Vacia el carrito
   clearCart(): void {
     this.cartService.clearLocalCart();
     this.loadCartItems();
