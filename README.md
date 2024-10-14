@@ -1,27 +1,28 @@
-# Ecommerce
+# Fake Store API Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+## Overview
 
-## Development server
+This project is a web application that utilizes the [Fake Store API](https://fakestoreapi.com/) to display a wide range of products. Users can browse products, view product details, and manage a shopping cart. The goal of this project is to demonstrate the capabilities of working with a RESTful API and to provide a user-friendly interface for online shopping.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- **Product Browsing**: Users can view a list of products along with their images, prices, and descriptions.
+- **Product Details**: Users can click on individual products to see more detailed information.
+- **Shopping Cart**: Users can add products to a shopping cart, adjust quantities, and remove items.
+- **Pagination**: The product list is paginated to enhance user experience and performance.
+- **Responsive Design**: The application is designed to work on various screen sizes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
 
-## Build
+- **Frontend**: Angular
+- **Backend**: Fake Store API
+- **Others**: RxJS for reactive programming, Angular Router for navigation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+To get a local copy up and running, follow these steps:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/yourproject.git
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
