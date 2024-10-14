@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { ProductItemCart } from '../../models/product.model';
 
@@ -17,7 +18,7 @@ export class CartComponent implements OnInit {
   showPurchaseModal: boolean = false;
   purchaseDetails: { items: ProductItemCart[], total: number } | null = null;
 
-  constructor(private cartService: CartService) {  }
+  constructor(private cartService: CartService, private router: Router) {  }
 
   onCheckout() {
     const checkoutDetails = this.cartService.checkout();
@@ -27,6 +28,7 @@ export class CartComponent implements OnInit {
 
   closeModal() {
     this.showPurchaseModal = false;
+    this.router.navigate(['/products']);
   }
 
   ngOnInit(): void {
